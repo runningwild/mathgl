@@ -44,10 +44,15 @@ func Falmostequal32(lhs float32, rhs float32) bool {
 	return (lhs+epsilon > rhs && lhs-epsilon < rhs)
 }
 
-// This function has around 4% error, probably fix this by using SSE
+// TODO: ASM me with SSE
+// Using the fast inverse root with better magic number
 func Fsqrt32(x float32) float32 {
-   i := *(*uint32)(unsafe.Pointer(&x))
-   i  += 127 << 23;
-   i >>= 1;
-   return *(*float32)(unsafe.Pointer(&i))
+    const t float32 = 1.5
+    var x2 float32 = x * 0.5
+    var y  float32 = x
+    i := *(*uint32)(unsafe.Pointer(&x))
+    i = 0x5f375a86 - ( i >> 1 )
+    y = *(*float32)(unsafe.Pointer(&i))
+    y = y * ( t - ( x2 * y * y ) )
+    return x * y
 }
