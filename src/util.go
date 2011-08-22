@@ -1,9 +1,3 @@
-/**
- * mathgl: util.go
- * User: Nils Hasenbanck
- * Date: 21.08.11
- * Time: 13:35
- */
 package mathgl
 
 const (

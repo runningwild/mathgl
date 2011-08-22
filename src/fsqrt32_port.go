@@ -1,8 +1,8 @@
-// Using the fast inverse root with better magic number
 package mathgl
 
 import "unsafe"
 
+// Using the fast inverse root with better magic number
 func fsqrt32Go(x float32) float32 {
     const t float32 = 1.5
     var x2 float32 = x * 0.5

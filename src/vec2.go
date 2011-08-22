@@ -1,9 +1,3 @@
-/**
- * mathgl: vec2.go
- * User: Nils Hasenbanck
- * Date: 21.08.11
- * Time: 13:55
- */
 package mathgl
 
 type Vec2 struct {

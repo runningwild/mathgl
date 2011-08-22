@@ -1,9 +1,3 @@
-/**
- * mathgl: util_test.go
- * User: Nils Hasenbanck
- * Date: 21.08.11
- * Time: 19:28
- */
 package mathgl
 
 import (
