@@ -6,8 +6,6 @@
  */
 package mathgl
 
-import "unsafe"
-
 const (
 	PI         float32 = 3.141592
 	PIover180  float32 = 0.017453
@@ -44,15 +42,3 @@ func Falmostequal32(lhs float32, rhs float32) bool {
 	return (lhs+epsilon > rhs && lhs-epsilon < rhs)
 }
 
-// TODO: ASM me with SSE
-// Using the fast inverse root with better magic number
-func Fsqrt32(x float32) float32 {
-    const t float32 = 1.5
-    var x2 float32 = x * 0.5
-    var y  float32 = x
-    i := *(*uint32)(unsafe.Pointer(&x))
-    i = 0x5f375a86 - ( i >> 1 )
-    y = *(*float32)(unsafe.Pointer(&i))
-    y = y * ( t - ( x2 * y * y ) )
-    return x * y
-}
