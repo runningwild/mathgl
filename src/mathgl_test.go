@@ -19,8 +19,8 @@ var squareTests = []squareTest{
 func TestSqrtFloat32(t *testing.T) {
 	var error, result float32
 	for _, st := range squareTests {
-		result = FSqrt32(st.in)
-		error = ( FMax32(st.out,result) / FMin32(st.out,result) ) - 1
+		result = Fsqrt32(st.in)
+		error = ( Fmax32(st.out,result) / Fmin32(st.out,result) ) - 1
 		if error > 0.04 {
 		    message := fmt.Sprintf("The error is too big: srqrt(%f) with error %f\n", st.in, error)
 		    t.Errorf(message)

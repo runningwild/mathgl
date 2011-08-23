@@ -1,3 +1,3 @@
 package mathgl
 
-func FSqrt32(x float32) float32
+func Fsqrt32(x float32) float32

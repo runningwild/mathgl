@@ -11,11 +11,11 @@ func (v *Vec2) Fill(x float32, y float32) {
 }
 
 func (v *Vec2) Length() float32 {
-    return FSqrt32(FSqr32(v.x) + FSqr32(v.y))
+    return Fsqrt32(Fsqr32(v.x) + Fsqr32(v.y))
 }
 
 func (v *Vec2) LengthSq() float32 {
-    return FSqr32(v.x) + FSqr32(v.y)
+    return Fsqr32(v.x) + Fsqr32(v.y)
 }
 
 func (v *Vec2) Normalize() {

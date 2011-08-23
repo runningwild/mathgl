@@ -3,7 +3,7 @@ package mathgl
 import "unsafe"
 
 // Using the fast inverse root with better magic number
-func fsqrt32Go(x float32) float32 {
+func Fsqrt32Go(x float32) float32 {
     const t float32 = 1.5
     var x2 float32 = x * 0.5
     var y  float32 = x
@@ -14,6 +14,6 @@ func fsqrt32Go(x float32) float32 {
     return x * y
 }
 
-func fsqrt32GoC(f float32, r *float32) {
-	*r = fsqrt32Go(f)
+func Fsqrt32GoC(f float32, r *float32) {
+	*r = Fsqrt32Go(f)
 }

@@ -7,32 +7,32 @@ const (
 	epsilon    float32 = 1.0 / 64.0
 )
 
-func FSqr32(s float32) float32 {
+func Fsqr32(s float32) float32 {
 	return s * s
 }
-func FDegToRad32(degrees float32) float32 {
+func Fdeg2rad32(degrees float32) float32 {
 	return degrees * PIover180
 }
 
-func FRadToDeg32(radians float32) float32 {
+func Frad2deg32(radians float32) float32 {
 	return radians * PIunder180
 }
 
-func FMin32(lhs float32, rhs float32) float32 {
+func Fmin32(lhs float32, rhs float32) float32 {
 	if lhs < rhs {
 		return lhs
 	}
 	return rhs
 }
 
-func FMax32(lhs float32, rhs float32) float32 {
+func Fmax32(lhs float32, rhs float32) float32 {
 	if lhs > rhs {
 		return lhs
 	}
 	return rhs
 }
 
-func FAlmostEqual32(lhs float32, rhs float32) bool {
+func FalmostEqual32(lhs float32, rhs float32) bool {
 	return (lhs+epsilon > rhs && lhs-epsilon < rhs)
 }
 
