@@ -5,7 +5,7 @@ type Vec2 struct {
     y float32
 }
 
-func (v *Vec2) Fill(x float32, y float32) *Vec2 {
+func (v *Vec2) Fill(x float32, y float32) {
     v.x = x
     v.y = y
 }
