@@ -1,6 +1,6 @@
 include $(GOROOT)/src/Make.inc
 
-TARG=mathgl
+TARG=github.com/arbaal/mathgl
 
 OFILES_amd64=\
 	fsqrt32_amd64.$O\
