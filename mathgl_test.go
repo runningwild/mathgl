@@ -62,7 +62,7 @@ func TestVec2(t *testing.T) {
 	    message := fmt.Sprintf("Vector should be Vec(1.0,1.0) but is Vec2(%f,%f) after subtraction\n", v2.x, v2.y)
 		t.Errorf(message)
 	}
-	identity := MakeIdentity()
+	identity := MakeIdentityMat3()
 	v2.Transform(identity)
 	if v2.x != 1.0 || v2.y != 1.0 {
 	    message := fmt.Sprintf("Vector should be Vec(1.0,1.0) but is Vec2(%f,%f) after transformation with identity matrix\n", v2.x, v2.y)
