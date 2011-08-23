@@ -7,4 +7,10 @@ The library is tested to work under linux/amd64. Please feel free to submit bugr
 at the following github page:
 http://github.com/arbaal/mathgl
 
+You can install it with goinstall:
+goinstall github.com/arbaal/mathgl
+
+For documentation try:
+godoc -http=:6060
+
 This library is released under the modified BSD license, which you can find in the LICENSE file.
