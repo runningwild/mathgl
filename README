@@ -1,0 +1,10 @@
+MathGL is a simple 3D math library written in Go which should help writing OpenGL code.
+
+It is heavily influenced by the kazmath C library which you can find under:
+http://www.kazade.co.uk/kazmath/
+
+The library is tested to work under linux/amd64. Please feel free to submit bugreports/issues/code
+at the following github page:
+http://github.com/arbaal/MathGL
+
+This library is released under the modified BSD license, which you can find in the LICENSE file.
