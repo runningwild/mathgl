@@ -1,18 +1,25 @@
 include $(GOROOT)/src/Make.inc
 
-.PHONY: mathgl install examples clean
+TARG=mathgl
 
-all: mathgl
+OFILES_amd64=\
+	fsqrt32_amd64.$O\
 
-mathgl:
-	gomake -C src
+OFILES=\
+	$(OFILES_$(GOARCH))
 
-install:
-	gomake -C src install
+ALLGOFILES=\
+	fsqrt32.go\
+	fsqrt32_port.go\
+	mat3.go\
+	func.go\
+	vec2.go\
 
-test:
-	gomake -C src test
+NOGOFILES=\
+	$(subst _$(GOARCH).$O,.go,$(OFILES_$(GOARCH)))
 
-clean:
-	gomake -C src clean
-	rm -Rf out
+GOFILES=\
+	$(filter-out $(NOGOFILES),$(ALLGOFILES))\
+	$(subst .go,_decl.go,$(NOGOFILES))\
+
+include $(GOROOT)/src/Make.pkg
