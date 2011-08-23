@@ -5,10 +5,9 @@ type Vec2 struct {
     y float32
 }
 
-func Vec2Fill(pOut *Vec2, x float32, y float32) *Vec2 {
-    pOut.x = x
-    pOut.y = y
-    return pOut
+func (v *Vec2) Fill(x float32, y float32) *Vec2 {
+    v.x = x
+    v.y = y
 }
 
 func (v *Vec2) Length() float32 {
@@ -34,7 +33,7 @@ func (v *Vec2) Dot(x *Vec2) float32 {
     return v.x * x.x + v.y * x.y
 }
 
-func (v *Vec2) Vec2Subtract(x *Vec2) {
+func (v *Vec2) Subtract(x *Vec2) {
 	v.x -= x.x
 	v.y -= x.y
 }
