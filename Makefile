@@ -3,20 +3,14 @@ include $(GOROOT)/src/Make.inc
 TARG=github.com/arbaal/mathgl
 
 OFILES_amd64=\
-	fsqrt32_amd64.$O\
-
-OFILES_386=\
-	fsqrt32.go\
-	fsqrt32_port.$O\
-
-OFILES_arm=\
-	fsqrt32.go\
-	fsqrt32_port.$O\
+#	fsqrt32_amd64.$O\
 
 OFILES=\
 	$(OFILES_$(GOARCH))
 
 ALLGOFILES=\
+	fsqrt32.go\
+	fsqrt32_port.go\
 	mat3.go\
 	func.go\
 	vec2.go\
