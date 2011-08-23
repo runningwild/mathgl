@@ -12,7 +12,6 @@ OFILES=\
 	$(OFILES_$(GOARCH))
 
 ALLGOFILES=\
-	fsqrt32.go\
 	mat3.go\
 	func.go\
 	vec2.go\
