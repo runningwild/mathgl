@@ -5,6 +5,6 @@ http://www.kazade.co.uk/kazmath/
 
 The library is tested to work under linux/amd64. Please feel free to submit bugreports/issues/code
 at the following github page:
-http://github.com/arbaal/MathGL
+http://github.com/arbaal/mathgl
 
 This library is released under the modified BSD license, which you can find in the LICENSE file.
