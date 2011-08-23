@@ -2,6 +2,9 @@ include $(GOROOT)/src/Make.inc
 
 TARG=github.com/arbaal/mathgl
 
+OFILES_arm=\
+	fsqrt32_arm.$O\
+
 OFILES_amd64=\
 	fsqrt32_amd64.$O\
 
