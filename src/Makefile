@@ -12,7 +12,7 @@ ALLGOFILES=\
 	fsqrt32.go\
 	fsqrt32_port.go\
 	mat3.go\
-	util.go\
+	func.go\
 	vec2.go\
 
 NOGOFILES=\
