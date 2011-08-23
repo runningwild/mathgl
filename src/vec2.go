@@ -14,7 +14,7 @@ func (v *Vec2) Length() float32 {
     return Fsqrt32(Fsqr32(v.x) + Fsqr32(v.y))
 }
 
-func (v *Vec2) Lengthsq() float32 {
+func (v *Vec2) LengthSq() float32 {
     return Fsqr32(v.x) + Fsqr32(v.y)
 }
 
@@ -53,7 +53,7 @@ func (v *Vec2) Scale(s float32) {
 	v.y = v.y * s
 }
 
-func (v *Vec2) Areequal(x *Vec2) bool {
+func (v *Vec2) AreEqual(x *Vec2) bool {
     return ((v.x < x.x + epsilon && v.x > x.x - epsilon) &&
 	    (v.y < x.y + epsilon && v.y > x.y - epsilon))
 }

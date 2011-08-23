@@ -73,7 +73,7 @@ func TestVec2(t *testing.T) {
 	    message := fmt.Sprintf("Vector should be Vec(5.0,5.0) but is Vec2(%f,%f) after scale with scalar 5.0\n", v2.x, v2.y)
 		t.Errorf(message)
 	}
-	if !v2.Areequal(v2) {
+	if !v2.AreEqual(v2) {
 	    message := fmt.Sprintf("Vector is not equal with himelf. We screwed up badly!", v2.x, v2.y)
 		t.Errorf(message)
 	}
