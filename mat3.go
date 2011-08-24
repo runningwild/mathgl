@@ -151,7 +151,7 @@ func MakeTranslationMat3(x, y float32) *Mat3 {
 
 // Returns a matrix that rotates around the x-axis
 func MakeRotationXMat3(radians float32) *Mat3 {
-	var m mat3
+	var m Mat3
 
 	m[0] = 1.0
 	m[1] = 0.0
@@ -170,7 +170,7 @@ func MakeRotationXMat3(radians float32) *Mat3 {
 
 // Returns a matrix that rotates around the y-axis
 func MakeRotationYMat3(radians float32) *Mat3 {
-	var m mat3
+	var m Mat3
 
 	m[0] = Fcos32(radians)
 	m[1] = 0.0
@@ -188,8 +188,8 @@ func MakeRotationYMat3(radians float32) *Mat3 {
 }
 
 // Returns a matrix that rotates around the z-axis
-func MakeRotationYMat3(radians float32) *Mat3 {
-	var m mat3
+func MakeRotationZMat3(radians float32) *Mat3 {
+	var m Mat3
 
 	m[0] = Fcos32(radians)
 	m[1] = -Fsin32(radians)

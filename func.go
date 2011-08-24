@@ -1,6 +1,8 @@
 // MathGL is a simple 3D math library written in Go which should help writing OpenGL code.
 package mathgl
 
+import "math"
+
 // Some constants which are often in 3D math.
 const (
 	PI         float32 = 3.141592
@@ -43,4 +45,18 @@ func Fmax32(lhs float32, rhs float32) float32 {
 // Returns true if two float32 are almost the same (the threshold is epsilon = 1/64).
 func FalmostEqual32(lhs float32, rhs float32) bool {
 	return (lhs+epsilon > rhs && lhs-epsilon < rhs)
+}
+
+// Returns the cos of a given float32 radiant
+func Fcos32(radiant float32) float32 {
+	// This is faster then the x87 assembly I wrote
+	// A speed hack is welcome!
+	return float32(math.Cos(float64(radiant)))
+}
+
+// Returns the sin of a given float32 radiant
+func Fsin32(radiant float32) float32 {
+	// This is faster then the x87 assembly I wrote
+	// A speed hack is welcome!
+	return float32(math.Sin(float64(radiant)))
 }
