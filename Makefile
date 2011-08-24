@@ -15,6 +15,7 @@ OFILES=\
 	$(OFILES_$(GOARCH))
 
 ALLGOFILES=\
+	fsincos32.go\
 	mat3.go\
 	func.go\
 	vec2.go\

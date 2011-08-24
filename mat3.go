@@ -129,3 +129,79 @@ func (m *Mat3) AreEqual(candidate *Mat3) bool {
 	}
 	return true
 }
+
+// Returns a scaling matrix, which scale with given x,y floats32
+func MakeScalingMat3(x, y float32) *Mat3 {
+	out := MakeIdentityMat3()
+	out[0] = x
+	out[4] = y
+
+	return out
+}
+
+
+// Returns a translation matrix, which translates with given x,y floats32
+func MakeTranslationMat3(x, y float32) *Mat3 {
+	out := MakeIdentityMat3()
+	out[6] = x
+	out[7] = y
+
+	return out
+}
+
+// Returns a matrix that rotates around the x-axis
+func MakeRotationXMat3(radians float32) *Mat3 {
+	var m mat3
+
+	m[0] = 1.0
+	m[1] = 0.0
+	m[2] = 0.0
+
+	m[3] = 0.0
+	m[4] = Fcos32(radians)
+	m[5] = Fsin32(radians)
+
+	m[6] = 0.0
+	m[7] = -Fsin32(radians)
+	m[8] = Fcos32(radians)
+
+	return &m
+}
+
+// Returns a matrix that rotates around the y-axis
+func MakeRotationYMat3(radians float32) *Mat3 {
+	var m mat3
+
+	m[0] = Fcos32(radians)
+	m[1] = 0.0
+	m[2] = -Fsin32(radians)
+
+	m[3] = 0.0
+	m[4] = 1.0
+	m[5] = 0.0
+
+	m[6] = Fsin32(radians)
+	m[7] = 0.0
+	m[8] = Fcos32(radians)
+
+	return &m
+}
+
+// Returns a matrix that rotates around the z-axis
+func MakeRotationYMat3(radians float32) *Mat3 {
+	var m mat3
+
+	m[0] = Fcos32(radians)
+	m[1] = -Fsin32(radians)
+	m[2] = 0.0
+
+	m[3] = Fsin32(radians)
+	m[4] = Fcos32(radians)
+	m[5] = 0.0
+
+	m[6] = 0.0
+	m[7] = 0.0
+	m[8] = 1.0
+
+	return &m
+}

@@ -16,7 +16,7 @@ var squareTests = []squareTest{
 }
 
 // We test if the sqrt function has more then 1% error
-func TestSqrtFloat32(t *testing.T) {
+func TestFsqrt32(t *testing.T) {
 	var error, result float32
 	for _, st := range squareTests {
 		result = Fsqrt32(st.in)
@@ -25,6 +25,17 @@ func TestSqrtFloat32(t *testing.T) {
 			message := fmt.Sprintf("The error is too big: srqrt(%f) with error %f\n", st.in, error)
 			t.Errorf(message)
 		}
+	}
+}
+
+func TestFsin32(t *testing.T) {
+	if Fcos32(Fdeg2rad32(360)) != 1.0 {
+		message := fmt.Sprintf("cos(360.0) is not 1, it is %f)\n", Fcos32(Fdeg2rad32(360)))
+		t.Errorf(message)
+	}
+	if Fsin32(Fdeg2rad32(90)) != 1.0 {
+		message := fmt.Sprintf("sin(90.0) is not 1, it is %f)\n", Fsin32(Fdeg2rad32(90)))
+		t.Errorf(message)
 	}
 }
 
