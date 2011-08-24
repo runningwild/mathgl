@@ -44,4 +44,3 @@ func Fmax32(lhs float32, rhs float32) float32 {
 func FalmostEqual32(lhs float32, rhs float32) bool {
 	return (lhs+epsilon > rhs && lhs-epsilon < rhs)
 }
-
