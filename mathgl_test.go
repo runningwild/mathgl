@@ -15,13 +15,13 @@ var squareTests = []squareTest{
 	squareTest{10.25, 3.201562119},
 }
 
-// We test if the sqrt function has more then 4% error
+// We test if the sqrt function has more then 1% error
 func TestSqrtFloat32(t *testing.T) {
 	var error, result float32
 	for _, st := range squareTests {
 		result = Fsqrt32(st.in)
 		error = (Fmax32(st.out, result) / Fmin32(st.out, result)) - 1
-		if error > 0.04 {
+		if error > 0.01 {
 			message := fmt.Sprintf("The error is too big: srqrt(%f) with error %f\n", st.in, error)
 			t.Errorf(message)
 		}
