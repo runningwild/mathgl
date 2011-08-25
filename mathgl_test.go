@@ -28,13 +28,30 @@ func TestFsqrt32(t *testing.T) {
 	}
 }
 
-func TestFsin32(t *testing.T) {
-	if Fcos32(Fdeg2rad32(360)) != 1.0 {
-		message := fmt.Sprintf("cos(360.0) is not 1, it is %f)\n", Fcos32(Fdeg2rad32(360)))
+func TestFsincos32(t *testing.T) {
+	cos := Fcos32(Fdeg2rad32(450))
+	if !FalmostEqual32(cos, 0) {
+		message := fmt.Sprintf("cos(450.0) is not 0, it is %e)\n", cos)
 		t.Errorf(message)
 	}
-	if Fsin32(Fdeg2rad32(90)) != 1.0 {
-		message := fmt.Sprintf("sin(90.0) is not 1, it is %f)\n", Fsin32(Fdeg2rad32(90)))
+	cos = Fcos32(Fdeg2rad32(180))
+	if !FalmostEqual32(cos, -1) {
+		message := fmt.Sprintf("cos(180.0) is not -1, it is %e)\n", cos)
+		t.Errorf(message)
+	}
+	cos = Fcos32(Fdeg2rad32(45))
+	if !FalmostEqual32(cos, 0.7071) {
+		message := fmt.Sprintf("cos(180.0) is not -1, it is %e)\n", cos)
+		t.Errorf(message)
+	}
+	sin := Fsin32(Fdeg2rad32(540))
+	if !FalmostEqual32(sin, 0) {
+		message := fmt.Sprintf("sin(540.0) is not 0, it is %e)\n", sin)
+		t.Errorf(message)
+	}
+	sin = Fsin32(Fdeg2rad32(45))
+	if !FalmostEqual32(sin, 0.7071) {
+		message := fmt.Sprintf("sin(540.0) is not 0, it is %e)\n", sin)
 		t.Errorf(message)
 	}
 }
