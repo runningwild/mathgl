@@ -6,11 +6,19 @@ package mathgl
 // 3x3 Matrix type.
 type Mat3 [9]float32
 
-// Returns a 3x3 identity matrix.
-func MakeIdentityMat3() *Mat3 {
-	// This code won't trigger the GC
-	m := Mat3{1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0}
-	return &m
+// Sets the matrix to a 3x3 identity matrix.
+func (m *Mat3) Identity() {
+	m[0] = 1
+	m[1] = 0
+	m[2] = 0
+
+	m[3] = 0
+	m[4] = 1
+	m[5] = 0
+
+	m[6] = 0
+	m[7] = 0
+	m[8] = 1
 }
 
 // Fills the matrix with the given float32.
@@ -66,8 +74,9 @@ func (m *Mat3) Inverse(determinate float32) {
 
 // Returns true if the matrix is a identity matrix.
 func (m *Mat3) IsIdentity() bool {
-	identity := MakeIdentityMat3()
-	if m.AreEqual(identity) {
+	var identity Mat3
+	identity.Identity()
+	if m.AreEqual(&identity) {
 		return true
 	}
 	return false
@@ -130,29 +139,23 @@ func (m *Mat3) AreEqual(candidate *Mat3) bool {
 	return true
 }
 
-// Returns a scaling matrix, which scale with given x,y floats32
-func MakeScalingMat3(x, y float32) *Mat3 {
-	out := MakeIdentityMat3()
-	out[0] = x
-	out[4] = y
-
-	return out
+// Set the matrix to a scaling matrix, which scale with given x,y floats32
+func (m *Mat3) Scaling(x, y float32) {
+	m.Identity()
+	m[0] = x
+	m[4] = y
 }
 
 
-// Returns a translation matrix, which translates with given x,y floats32
-func MakeTranslationMat3(x, y float32) *Mat3 {
-	out := MakeIdentityMat3()
-	out[6] = x
-	out[7] = y
-
-	return out
+// Set the matrix to a translation matrix, which translates with given x,y floats32
+func (m *Mat3) Translation(x, y float32) {
+	m.Identity()
+	m[6] = x
+	m[7] = y
 }
 
-// Returns a matrix that rotates around the x-axis
-func MakeRotationXMat3(radians float32) *Mat3 {
-	var m Mat3
-
+// Set the matrix to a matrix that rotates around the x-axis
+func (m *Mat3) RotationX(radians float32) {
 	m[0] = 1.0
 	m[1] = 0.0
 	m[2] = 0.0
@@ -164,14 +167,10 @@ func MakeRotationXMat3(radians float32) *Mat3 {
 	m[6] = 0.0
 	m[7] = -Fsin32(radians)
 	m[8] = Fcos32(radians)
-
-	return &m
 }
 
-// Returns a matrix that rotates around the y-axis
-func MakeRotationYMat3(radians float32) *Mat3 {
-	var m Mat3
-
+// Set the matrix to a matrix that rotates around the y-axis
+func (m *Mat3) RotationY(radians float32) {
 	m[0] = Fcos32(radians)
 	m[1] = 0.0
 	m[2] = -Fsin32(radians)
@@ -183,14 +182,10 @@ func MakeRotationYMat3(radians float32) *Mat3 {
 	m[6] = Fsin32(radians)
 	m[7] = 0.0
 	m[8] = Fcos32(radians)
-
-	return &m
 }
 
-// Returns a matrix that rotates around the z-axis
-func MakeRotationZMat3(radians float32) *Mat3 {
-	var m Mat3
-
+// Set the matrix to a matrix that rotates around the z-axis
+func (m *Mat3) RotationZ(radians float32) {
 	m[0] = Fcos32(radians)
 	m[1] = -Fsin32(radians)
 	m[2] = 0.0
@@ -202,6 +197,37 @@ func MakeRotationZMat3(radians float32) *Mat3 {
 	m[6] = 0.0
 	m[7] = 0.0
 	m[8] = 1.0
+}
 
-	return &m
+// Sets the matrix to a matrix that rotates with the help of the given quaternion
+func (m *Mat3) RotationQuaternion(pIn *Quaternion) {
+	m[0] = 1.0 - 2.0*(pIn.y*pIn.y+pIn.z*pIn.z)
+	m[1] = 2.0 * (pIn.x*pIn.y - pIn.w*pIn.z)
+	m[2] = 2.0 * (pIn.x*pIn.z + pIn.w*pIn.y)
+
+	m[3] = 2.0 * (pIn.x*pIn.y + pIn.w*pIn.z)
+	m[4] = 1.0 - 2.0*(pIn.x*pIn.x+pIn.z*pIn.z)
+	m[5] = 2.0 * (pIn.y*pIn.z - pIn.w*pIn.x)
+
+	m[6] = 2.0 * (pIn.x*pIn.z - pIn.w*pIn.y)
+	m[7] = 2.0 * (pIn.y*pIn.z + pIn.w*pIn.x)
+	m[8] = 1.0 - 2.0*(pIn.x*pIn.x+pIn.y*pIn.y)
+}
+
+// Sets the matrix to a matrix that rotates with the help of the given vector Vec3 and angle float32
+func (m *Mat3) RotationAxisAngle(axis Vec3, radians float32) {
+	rcos := Fcos32(radians)
+	rsin := Fsin32(radians)
+
+	m[0] = rcos + axis.x*axis.x*(1-rcos)
+	m[1] = axis.z*rsin + axis.y*axis.x*(1-rcos)
+	m[2] = -axis.y*rsin + axis.z*axis.x*(1-rcos)
+
+	m[3] = -axis.z*rsin + axis.x*axis.y*(1-rcos)
+	m[4] = rcos + axis.y*axis.y*(1-rcos)
+	m[5] = axis.x*rsin + axis.z*axis.y*(1-rcos)
+
+	m[6] = axis.y*rsin + axis.x*axis.z*(1-rcos)
+	m[7] = -axis.x*rsin + axis.y*axis.z*(1-rcos)
+	m[8] = rcos + axis.z*axis.z*(1-rcos)
 }

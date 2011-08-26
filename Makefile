@@ -15,9 +15,12 @@ OFILES=\
 	$(OFILES_$(GOARCH))
 
 ALLGOFILES=\
-	mat3.go\
+	const.go\
 	func.go\
+	mat3.go\
+        quaternion.go\
 	vec2.go\
+	vec3.go\
 
 NOGOFILES=\
 	$(subst _$(GOARCH).$O,.go,$(OFILES_$(GOARCH)))
