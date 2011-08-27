@@ -59,7 +59,6 @@ func (v *Vec3) Subtract(x *Vec3) {
 	v.x -= x.x
 	v.y -= x.y
 	v.z -= x.z
-
 }
 
 // Transforms the Vec3 by a given Mat4
@@ -126,12 +125,14 @@ func (v *Vec3) InverseTransformNormal(m *Mat4) {
 func (v *Vec3) Scale(s float32) {
 	v.x = v.x * s
 	v.y = v.y * s
+	v.z = v.z * s
 }
 
 // Returns true if the vectors are approximately equal in value
 func (v *Vec3) AreEqual(x *Vec3) bool {
 	return ((v.x < x.x+epsilon && v.x > x.x-epsilon) &&
-		(v.y < x.y+epsilon && v.y > x.y-epsilon))
+		(v.y < x.y+epsilon && v.y > x.y-epsilon) &&
+		(v.z < x.z+epsilon && v.z > x.z-epsilon))
 }
 
 // Assigns the given Vec3 to the Vec3
