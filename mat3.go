@@ -1,6 +1,4 @@
-/*
-   MathGL is a simple 3D math library which should help writing OpenGL code.
-*/
+// MathGL is a simple 3D math library written in Go which should help writing OpenGL code.
 package mathgl
 
 // 3x3 Matrix type.
