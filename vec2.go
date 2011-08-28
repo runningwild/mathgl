@@ -1,5 +1,7 @@
 package mathgl
 
+import "fmt"
+
 // 2 dimensional vector.
 type Vec2 struct {
 	x, y float32
@@ -55,10 +57,21 @@ func (v *Vec2) Transform(m *Mat3) {
 	v.y = t.x*m[1] + t.y*m[4] + m[7]
 }
 
-// Scales the vector with the given float32
+// Scales the vector with the given float32. Does normalize the vector beforehand!
 func (v *Vec2) Scale(s float32) {
-	v.x = v.x * s
-	v.y = v.y * s
+	v.Normalize()
+	v.x *= s
+	v.y *= s
+}
+
+// Assigns the given Vec2 to the Vec2
+func (v *Vec2) Assign(x *Vec2) {
+	if v == x {
+		return
+	}
+
+	v.x = x.x
+	v.y = x.y
 }
 
 // Returns true if the vectors are approximately equal in value
@@ -71,4 +84,8 @@ func (v *Vec2) AreEqual(x *Vec2) bool {
 func (v *Vec2) Zero() {
 	v.x = 0.0
 	v.y = 0.0
+}
+
+func (v *Vec2) String() string {
+	return fmt.Sprintf("Vec2(%f, %f)", v.x, v.y)
 }

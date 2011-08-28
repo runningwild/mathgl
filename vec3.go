@@ -1,5 +1,7 @@
 package mathgl
 
+import "fmt"
+
 // 2 dimensional vector.
 type Vec3 struct {
 	x, y, z float32
@@ -121,11 +123,12 @@ func (v *Vec3) InverseTransformNormal(m *Mat4) {
 	v.z = t.x*m[8] + t.y*m[9] + t.z*m[10]
 }
 
-// Scales a vector to the given length s in float32. Does not normalize first, you should do that!
+// Scales a vector to the given length s in float32. Does normalize the vector beforehand!
 func (v *Vec3) Scale(s float32) {
-	v.x = v.x * s
-	v.y = v.y * s
-	v.z = v.z * s
+	v.Normalize()
+	v.x *= s
+	v.y *= s
+	v.z *= s
 }
 
 // Returns true if the vectors are approximately equal in value
@@ -151,4 +154,8 @@ func (v *Vec3) Zero() {
 	v.x = 0.0
 	v.y = 0.0
 	v.z = 0.0
+}
+
+func (v *Vec3) String() string {
+	return fmt.Sprintf("Vec3(%f, %f, %f)", v.x, v.y, v.z)
 }
