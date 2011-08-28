@@ -108,3 +108,39 @@ func TestVec2(t *testing.T) {
 	}
 
 }
+
+
+func TestMat3(t *testing.T) {
+	m := Mat3{5.0, 8.0, 1.0, 2.0, 9.0, 3.0, 4.0, 7.0, 4.0}
+	n := m
+	det := m.Determinant()
+	if det != 85 {
+		t.Errorf("Determinant is not 85! It is %f", det)
+	}
+	if !m.Inverse(det) {
+		t.Errorf("Determinant was 0! Can't calculate inverse!")
+	}
+	m.Multiply(&n)
+	if !m.IsIdentity() {
+		t.Errorf("The Mat3 matrix is not a identity matrix after multiplying itself with its inverse.")
+	}
+}
+
+
+func TestMat4(t *testing.T) {
+	var m Mat4
+	m.Identity()
+	det := m.Determinant()
+	if det != 1 {
+		t.Errorf("Determinant of identity matrix is not 1! It is %f", det)
+	}
+	m = Mat4{1.0, 6.0, 2.0, 2.0, 8.0, 4.0, 2.0, 9.0, 7.0, 2.0, 4.0, 1.0, 10.0, 9.0, 5.0, 5.0}
+	n := m
+	if !m.Inverse(det) {
+		t.Errorf("Determinant was 0! Can't calculate inverse!")
+	}
+	m.Multiply(&n)
+	if !m.IsIdentity() {
+		t.Errorf("The Mat4 matrix is not a identity matrix after multiplying itself with its inverse.")
+	}
+}

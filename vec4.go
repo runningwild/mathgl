@@ -86,9 +86,8 @@ func (v *Vec3) TransformArray(x []Vec4, m *Mat4) {
 }
 
 
-// Scales a vector to the given length s in float32. Does not normalize first, you should do that!
+// Scales a vector to the given length s in float32.
 func (v *Vec4) Scale(s float32) {
-	v.Normalize()
 	v.x *= s
 	v.y *= s
 	v.z *= s

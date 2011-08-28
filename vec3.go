@@ -123,9 +123,8 @@ func (v *Vec3) InverseTransformNormal(m *Mat4) {
 	v.z = t.x*m[8] + t.y*m[9] + t.z*m[10]
 }
 
-// Scales a vector to the given length s in float32. Does normalize the vector beforehand!
+// Scales a vector to the given length s in float32.
 func (v *Vec3) Scale(s float32) {
-	v.Normalize()
 	v.x *= s
 	v.y *= s
 	v.z *= s

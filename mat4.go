@@ -5,12 +5,25 @@ type Mat4 [16]float32
 
 // Sets the matrix to a 3x3 identity matrix.
 func (m *Mat4) Identity() {
-	m = &Mat4{
-		1.0, 0.0, 0.0, 0.0,
-		0.0, 1.0, 0.0, 0.0,
-		0.0, 0.0, 1.0, 0.0,
-		0.0, 0.0, 0.0, 1.0,
-	}
+	m[0] = 1
+	m[1] = 0
+	m[2] = 0
+	m[3] = 0
+
+	m[4] = 0
+	m[5] = 1
+	m[6] = 0
+	m[7] = 0
+
+	m[8] = 0
+	m[9] = 0
+	m[10] = 1
+	m[11] = 0
+
+	m[12] = 0
+	m[13] = 0
+	m[14] = 0
+	m[15] = 1
 }
 
 // Fills the matrix with the given float32.
@@ -24,7 +37,6 @@ func (m *Mat4) Fill(content float32) {
 func (m *Mat4) Determinant() float32 {
 	var determinant float32
 
-	// TODO: Test this!
 	determinant = m[12]*m[9]*m[6]*m[3] - m[8]*m[13]*m[6]*m[3] - m[12]*m[5]*m[10]*m[3] + m[4]*m[13]*m[10]*m[3] +
 		m[8]*m[5]*m[14]*m[3] - m[4]*m[9]*m[14]*m[3] - m[12]*m[9]*m[2]*m[7] + m[8]*m[13]*m[2]*m[7] +
 		m[12]*m[1]*m[10]*m[7] - m[0]*m[13]*m[10]*m[7] - m[8]*m[1]*m[14]*m[7] + m[0]*m[9]*m[14]*m[7] +
@@ -127,7 +139,6 @@ func gaussj(a, b *Mat4) bool {
 
 // Inverse the matrix with the given determinant in float32. Returns true if the inverse could be build.
 func (m *Mat4) Inverse(determinate float32) bool {
-	// TODO: Test this function
 	var inv, tmp Mat4
 	inv.Assign(m)
 	tmp.Identity()
@@ -159,7 +170,7 @@ func (m *Mat4) Transpose() {
 			tmp[(z*4)+x] = m[(x*4)+z]
 		}
 	}
-	m = &tmp
+	*m = tmp
 }
 
 // Multiplies the matrix with a given Mat4 matrix
@@ -187,7 +198,7 @@ func (m *Mat4) Multiply(in *Mat4) {
 	out[14] = m[2]*in[12] + m[6]*in[13] + m[10]*in[14] + m[14]*in[15]
 	out[15] = m[3]*in[12] + m[7]*in[13] + m[11]*in[14] + m[15]*in[15]
 
-	m = &out
+	*m = out
 }
 
 // Multiplies the matrix with a given scalar in float32.

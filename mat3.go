@@ -6,11 +6,17 @@ type Mat3 [9]float32
 
 // Sets the matrix to a 3x3 identity matrix.
 func (m *Mat3) Identity() {
-	m = &Mat3{
-		1.0, 0.0, 0.0,
-		0.0, 1.0, 0.0,
-		0.0, 0.0, 1.0,
-	}
+	m[0] = 1
+	m[1] = 0
+	m[2] = 0
+
+	m[3] = 0
+	m[4] = 1
+	m[5] = 0
+
+	m[6] = 0
+	m[7] = 0
+	m[8] = 1
 }
 
 // Fills the matrix with the given float32.
@@ -46,7 +52,7 @@ func (m *Mat3) Adjugate() {
 	adjugate[7] = m[1]*m[6] - m[0]*m[7]
 	adjugate[8] = m[0]*m[4] - m[1]*m[3]
 
-	m = &adjugate
+	*m = adjugate
 }
 
 // Inverse the matrix with the given determinant in float32. Returns true if the inverse could be build.
@@ -83,7 +89,7 @@ func (m *Mat3) Transpose() {
 			tmp[(z*3)+x] = m[(x*3)+z]
 		}
 	}
-	m = &tmp
+	*m = tmp
 }
 
 // Multiplies the matrix with a given Mat3 matrix
@@ -102,13 +108,13 @@ func (m *Mat3) Multiply(in *Mat3) {
 	out[7] = m[1]*in[6] + m[4]*in[7] + m[7]*in[8]
 	out[8] = m[2]*in[6] + m[5]*in[7] + m[8]*in[8]
 
-	m = &out
+	*m = out
 }
 
 // Multiplies the matrix with a given scalar in float32.
 func (m *Mat3) ScalarMultiply(factor float32) {
 	for i := range m {
-		m[i] = m[i] * factor
+		m[i] *= factor
 	}
 }
 

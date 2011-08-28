@@ -57,9 +57,8 @@ func (v *Vec2) Transform(m *Mat3) {
 	v.y = t.x*m[1] + t.y*m[4] + m[7]
 }
 
-// Scales the vector with the given float32. Does normalize the vector beforehand!
+// Scales the vector with the given float32.
 func (v *Vec2) Scale(s float32) {
-	v.Normalize()
 	v.x *= s
 	v.y *= s
 }
