@@ -58,7 +58,7 @@ func TestFsincos32(t *testing.T) {
 
 func TestVec2(t *testing.T) {
 	v2 := new(Vec2)
-	if v2.x != 0 || v2.y != 0 {
+	if v2.X != 0 || v2.Y != 0 {
 		t.Errorf("Initialized Vec2 is not zero\n")
 	}
 	v2.Fill(4.0, 3.0)
@@ -70,40 +70,40 @@ func TestVec2(t *testing.T) {
 	v2.Normalize()
 	length = v2.Length()
 	if length != 1.0 {
-		message := fmt.Sprintf("Length of Vec2(%f,%f) should be 1.0 but is %f\n", v2.x, v2.y, length)
+		message := fmt.Sprintf("Length of Vec2(%f,%f) should be 1.0 but is %f\n", v2.X, v2.Y, length)
 		t.Errorf(message)
 	}
 	v2.Add(v2)
-	if v2.x != 1.6 || v2.y != 1.2 {
-		message := fmt.Sprintf("Vec2(%f,%f) should be Vec2(1.6,1.2) after add function\n", v2.x, v2.y)
+	if v2.X != 1.6 || v2.Y != 1.2 {
+		message := fmt.Sprintf("Vec2(%f,%f) should be Vec2(1.6,1.2) after add function\n", v2.X, v2.Y)
 		t.Errorf(message)
 	}
 	dot := v2.Dot(v2)
 	if dot != 4.0 {
-		message := fmt.Sprintf("Dot product of Vec2(%f,%f) should be 4.0 but is %f \n", v2.x, v2.y, dot)
+		message := fmt.Sprintf("Dot product of Vec2(%f,%f) should be 4.0 but is %f \n", v2.X, v2.Y, dot)
 		t.Errorf(message)
 	}
 	sub := new(Vec2)
 	sub.Fill(0.6, 0.2)
 	v2.Subtract(sub)
-	if v2.x != 1.0 || v2.y != 1.0 {
-		message := fmt.Sprintf("Vector should be Vec(1.0,1.0) but is Vec2(%f,%f) after subtraction\n", v2.x, v2.y)
+	if v2.X != 1.0 || v2.Y != 1.0 {
+		message := fmt.Sprintf("Vector should be Vec(1.0,1.0) but is Vec2(%f,%f) after subtraction\n", v2.X, v2.Y)
 		t.Errorf(message)
 	}
 	var identity Mat3
 	identity.Identity()
 	v2.Transform(&identity)
-	if v2.x != 1.0 || v2.y != 1.0 {
-		message := fmt.Sprintf("Vector should be Vec(1.0,1.0) but is Vec2(%f,%f) after transformation with identity matrix\n", v2.x, v2.y)
+	if v2.X != 1.0 || v2.Y != 1.0 {
+		message := fmt.Sprintf("Vector should be Vec(1.0,1.0) but is Vec2(%f,%f) after transformation with identity matrix\n", v2.X, v2.Y)
 		t.Errorf(message)
 	}
 	v2.Scale(5.0)
-	if v2.x != 5.0 || v2.y != 5.0 {
-		message := fmt.Sprintf("Vector should be Vec(5.0,5.0) but is Vec2(%f,%f) after scale with scalar 5.0\n", v2.x, v2.y)
+	if v2.X != 5.0 || v2.Y != 5.0 {
+		message := fmt.Sprintf("Vector should be Vec(5.0,5.0) but is Vec2(%f,%f) after scale with scalar 5.0\n", v2.X, v2.Y)
 		t.Errorf(message)
 	}
 	if !v2.AreEqual(v2) {
-		message := fmt.Sprintf("Vector is not equal with himelf. We screwed up badly!", v2.x, v2.y)
+		message := fmt.Sprintf("Vector is not equal with himelf. We screwed up badly!", v2.X, v2.Y)
 		t.Errorf(message)
 	}
 

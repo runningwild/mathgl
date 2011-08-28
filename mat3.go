@@ -198,17 +198,17 @@ func (m *Mat3) RotationZ(radians float32) {
 
 // Sets the matrix to a matrix that rotates with the help of the given quaternion
 func (m *Mat3) RotationQuaternion(pIn *Quaternion) {
-	m[0] = 1.0 - 2.0*(pIn.y*pIn.y+pIn.z*pIn.z)
-	m[1] = 2.0 * (pIn.x*pIn.y - pIn.w*pIn.z)
-	m[2] = 2.0 * (pIn.x*pIn.z + pIn.w*pIn.y)
+	m[0] = 1.0 - 2.0*(pIn.Y*pIn.Y+pIn.Z*pIn.Z)
+	m[1] = 2.0 * (pIn.X*pIn.Y - pIn.W*pIn.Z)
+	m[2] = 2.0 * (pIn.X*pIn.Z + pIn.W*pIn.Y)
 
-	m[3] = 2.0 * (pIn.x*pIn.y + pIn.w*pIn.z)
-	m[4] = 1.0 - 2.0*(pIn.x*pIn.x+pIn.z*pIn.z)
-	m[5] = 2.0 * (pIn.y*pIn.z - pIn.w*pIn.x)
+	m[3] = 2.0 * (pIn.X*pIn.Y + pIn.W*pIn.Z)
+	m[4] = 1.0 - 2.0*(pIn.X*pIn.X+pIn.Z*pIn.Z)
+	m[5] = 2.0 * (pIn.Y*pIn.Z - pIn.W*pIn.X)
 
-	m[6] = 2.0 * (pIn.x*pIn.z - pIn.w*pIn.y)
-	m[7] = 2.0 * (pIn.y*pIn.z + pIn.w*pIn.x)
-	m[8] = 1.0 - 2.0*(pIn.x*pIn.x+pIn.y*pIn.y)
+	m[6] = 2.0 * (pIn.X*pIn.Z - pIn.W*pIn.Y)
+	m[7] = 2.0 * (pIn.Y*pIn.Z + pIn.W*pIn.X)
+	m[8] = 1.0 - 2.0*(pIn.X*pIn.X+pIn.Y*pIn.Y)
 }
 
 // Sets the matrix to a matrix that rotates with the help of the given vector Vec3 and angle float32
@@ -218,15 +218,15 @@ func (m *Mat3) RotationAxisAngle(axis Vec3, radians float32) {
 
 	axis.Normalize()
 
-	m[0] = rcos + axis.x*axis.x*(1-rcos)
-	m[1] = axis.z*rsin + axis.y*axis.x*(1-rcos)
-	m[2] = -axis.y*rsin + axis.z*axis.x*(1-rcos)
+	m[0] = rcos + axis.X*axis.X*(1-rcos)
+	m[1] = axis.Z*rsin + axis.Y*axis.X*(1-rcos)
+	m[2] = -axis.Y*rsin + axis.Z*axis.X*(1-rcos)
 
-	m[3] = -axis.z*rsin + axis.x*axis.y*(1-rcos)
-	m[4] = rcos + axis.y*axis.y*(1-rcos)
-	m[5] = axis.x*rsin + axis.z*axis.y*(1-rcos)
+	m[3] = -axis.Z*rsin + axis.X*axis.Y*(1-rcos)
+	m[4] = rcos + axis.Y*axis.Y*(1-rcos)
+	m[5] = axis.X*rsin + axis.Z*axis.Y*(1-rcos)
 
-	m[6] = axis.y*rsin + axis.x*axis.z*(1-rcos)
-	m[7] = -axis.x*rsin + axis.y*axis.z*(1-rcos)
-	m[8] = rcos + axis.z*axis.z*(1-rcos)
+	m[6] = axis.Y*rsin + axis.X*axis.Z*(1-rcos)
+	m[7] = -axis.X*rsin + axis.Y*axis.Z*(1-rcos)
+	m[8] = rcos + axis.Z*axis.Z*(1-rcos)
 }
