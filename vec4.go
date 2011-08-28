@@ -4,7 +4,7 @@ import "fmt"
 
 // 4 dimensional vector.
 type Vec4 struct {
-	x, y, z, w float32
+	X, Y, Z, W float32
 }
 
 // Fills the vector with the given float32

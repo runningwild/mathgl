@@ -1,5 +1,10 @@
 package mathgl
 
 type Quaternion struct {
-	x, y, z, w float32
+	X, Y, Z, W float32
+}
+
+func (q *Quaternion) RotationMatrix(rotation *Mat3) {}
+func (q *Quaternion) QuaternionToAxisAngle() (*Vec3, float32) {
+	return nil, 0.0
 }

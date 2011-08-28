@@ -314,19 +314,19 @@ func (m *Mat4) RotationZ(radians float32) {
 
 // Sets the matrix to a matrix that rotates with the help of the given quaternion
 func (m *Mat4) RotationQuaternion(pIn *Quaternion) {
-	m[0] = 1.0 - 2.0*(pIn.y*pIn.y+pIn.z*pIn.z)
-	m[1] = 2.0 * (pIn.x*pIn.y - pIn.w*pIn.z)
-	m[2] = 2.0 * (pIn.x*pIn.z + pIn.w*pIn.y)
+	m[0] = 1.0 - 2.0*(pIn.Y*pIn.Y+pIn.Z*pIn.Z)
+	m[1] = 2.0 * (pIn.X*pIn.Y - pIn.W*pIn.Z)
+	m[2] = 2.0 * (pIn.X*pIn.Z + pIn.W*pIn.Y)
 	m[3] = 0.0
 
-	m[4] = 2.0 * (pIn.x*pIn.y + pIn.w*pIn.z)
-	m[5] = 1.0 - 2.0*(pIn.x*pIn.x+pIn.z*pIn.z)
-	m[6] = 2.0 * (pIn.y*pIn.z - pIn.w*pIn.x)
+	m[4] = 2.0 * (pIn.X*pIn.Y + pIn.W*pIn.Z)
+	m[5] = 1.0 - 2.0*(pIn.X*pIn.X+pIn.Z*pIn.Z)
+	m[6] = 2.0 * (pIn.Y*pIn.Z - pIn.W*pIn.X)
 	m[7] = 0.0
 
-	m[8] = 2.0 * (pIn.x*pIn.z - pIn.w*pIn.y)
-	m[9] = 2.0 * (pIn.y*pIn.z + pIn.w*pIn.x)
-	m[10] = 1.0 - 2.0*(pIn.x*pIn.x+pIn.y*pIn.y)
+	m[8] = 2.0 * (pIn.X*pIn.Z - pIn.W*pIn.Y)
+	m[9] = 2.0 * (pIn.Y*pIn.Z + pIn.W*pIn.X)
+	m[10] = 1.0 - 2.0*(pIn.X*pIn.X+pIn.Y*pIn.Y)
 	m[11] = 0.0
 
 	m[12] = 0.0
@@ -342,23 +342,191 @@ func (m *Mat4) RotationAxisAngle(axis Vec3, radians float32) {
 
 	axis.Normalize()
 
-	m[0] = rcos + axis.x*axis.x*(1-rcos)
-	m[1] = axis.z*rsin + axis.y*axis.x*(1-rcos)
-	m[2] = -axis.y*rsin + axis.z*axis.x*(1-rcos)
+	m[0] = rcos + axis.X*axis.X*(1-rcos)
+	m[1] = axis.Z*rsin + axis.Y*axis.X*(1-rcos)
+	m[2] = -axis.Y*rsin + axis.Z*axis.X*(1-rcos)
 	m[3] = 0.0
 
-	m[4] = -axis.z*rsin + axis.x*axis.y*(1-rcos)
-	m[5] = rcos + axis.y*axis.y*(1-rcos)
-	m[6] = axis.x*rsin + axis.z*axis.y*(1-rcos)
+	m[4] = -axis.Z*rsin + axis.X*axis.Y*(1-rcos)
+	m[5] = rcos + axis.Y*axis.Y*(1-rcos)
+	m[6] = axis.X*rsin + axis.Z*axis.Y*(1-rcos)
 	m[7] = 0.0
 
-	m[8] = axis.y*rsin + axis.x*axis.z*(1-rcos)
-	m[9] = -axis.x*rsin + axis.y*axis.z*(1-rcos)
-	m[10] = rcos + axis.z*axis.z*(1-rcos)
+	m[8] = axis.Y*rsin + axis.X*axis.Z*(1-rcos)
+	m[9] = -axis.X*rsin + axis.Y*axis.Z*(1-rcos)
+	m[10] = rcos + axis.Z*axis.Z*(1-rcos)
 	m[11] = 0.0
 
 	m[12] = 0.0
 	m[13] = 0.0
 	m[14] = 0.0
 	m[15] = 1.0
+}
+
+// Sets the matrix to a rotation matrix from pitch, yaw and roll.
+func (m *Mat4) RotationPitchYawRoll(pitch, yaw, roll float32) {
+	cr := Fcos32(pitch)
+	sr := Fsin32(pitch)
+	cp := Fcos32(yaw)
+	sp := Fsin32(yaw)
+	cy := Fcos32(roll)
+	sy := Fsin32(roll)
+	srsp := sr * sp
+	crsp := cr * sp
+
+	m[0] = cp * cy
+	m[1] = srsp*cy - cr*sy
+	m[2] = crsp*cy + sr*sy
+	m[3] = 0.0
+
+	m[4] = cp * sy
+	m[5] = srsp*sy + cr*cy
+	m[6] = crsp*sy - sr*cy
+	m[7] = 0.0
+
+	m[8] = -sp
+	m[9] = sr * cp
+	m[10] = cr * cp
+	m[11] = 0.0
+
+	m[12] = 0.0
+	m[13] = 0.0
+	m[14] = 0.0
+	m[15] = 1.0
+}
+
+// Get the up vector from a 4x4 matrix.
+func (m *Mat4) GetUpVec3() *Vec3 {
+	var v Vec3
+	v.X = m[4]
+	v.Y = m[5]
+	v.Z = m[6]
+
+	v.Normalize()
+	return &v
+}
+
+// Get the right vector from a 4x4 matrix.
+func (m *Mat4) GetRightVec3() *Vec3 {
+	var v Vec3
+	v.X = m[0]
+	v.Y = m[1]
+	v.Z = m[2]
+
+	v.Normalize()
+	return &v
+}
+
+// Get the forward vector from a 4x4 matrix.
+func (m *Mat4) GetForwardVec3() *Vec3 {
+	var v Vec3
+	v.X = m[8]
+	v.Y = m[9]
+	v.Z = m[10]
+
+	v.Normalize()
+	return &v
+}
+
+// Extract a 3x3 rotation matrix from the input 4x4 transformation.
+func (m *Mat4) ExtractRotation() *Mat3 {
+	var out Mat3
+	out[0] = m[0]
+	out[1] = m[1]
+	out[2] = m[2]
+
+	out[3] = m[4]
+	out[4] = m[5]
+	out[5] = m[6]
+
+	out[6] = m[8]
+	out[7] = m[9]
+	out[8] = m[10]
+
+	return &out
+}
+
+// Take the rotation from a 4x4 transformation matrix, and return it as an axis and an angle (in radians)
+func (m *Mat4) RotationToAxisAngle() (*Vec3, float32) {
+	var temp Quaternion
+	rotation := m.ExtractRotation()
+	temp.RotationMatrix(rotation)
+	return temp.QuaternionToAxisAngle()
+}
+
+// Sets the matrix to a transformation matrix using a 3x3 rotation matrix and a 3d vector representing a translation.
+func (m *Mat4) RotationTranslation(rotation *Mat3, translation *Vec3) {
+	m[0] = rotation[0]
+	m[1] = rotation[1]
+	m[2] = rotation[2]
+	m[3] = 0.0
+
+	m[4] = rotation[3]
+	m[5] = rotation[4]
+	m[6] = rotation[5]
+	m[7] = 0.0
+
+	m[8] = rotation[6]
+	m[9] = rotation[7]
+	m[10] = rotation[8]
+	m[11] = 0.0
+
+	m[12] = translation.X
+	m[13] = translation.Y
+	m[14] = translation.Z
+	m[15] = 1.0
+}
+
+func (m *Mat4) kmMat4ExtractPlane(planeType PlaneEnum) *Plane {
+	var t float32 = 1.0
+	var plane Plane
+
+	switch planeType {
+	case PLANE_RIGHT:
+		plane.A = m[3] - m[0]
+		plane.B = m[7] - m[4]
+		plane.C = m[11] - m[8]
+		plane.D = m[15] - m[12]
+		break
+	case PLANE_LEFT:
+		plane.A = m[3] + m[0]
+		plane.B = m[7] + m[4]
+		plane.C = m[11] + m[8]
+		plane.D = m[15] + m[12]
+		break
+	case PLANE_BOTTOM:
+		plane.A = m[3] + m[1]
+		plane.B = m[7] + m[5]
+		plane.C = m[11] + m[9]
+		plane.D = m[15] + m[13]
+		break
+	case PLANE_TOP:
+		plane.A = m[3] - m[1]
+		plane.B = m[7] - m[5]
+		plane.C = m[11] - m[9]
+		plane.D = m[15] - m[13]
+		break
+	case PLANE_FAR:
+		plane.A = m[3] - m[2]
+		plane.B = m[7] - m[6]
+		plane.C = m[11] - m[10]
+		plane.D = m[15] - m[14]
+		break
+	case PLANE_NEAR:
+		plane.A = m[3] + m[2]
+		plane.B = m[7] + m[6]
+		plane.C = m[11] + m[10]
+		plane.D = m[15] + m[14]
+		break
+	default:
+		panic("Invalid plane type given!")
+	}
+
+	t = Fsqrt32(plane.A*plane.A + plane.B*plane.B + plane.C*plane.C)
+	plane.A /= t
+	plane.B /= t
+	plane.C /= t
+	plane.D /= t
+
+	return &plane
 }

@@ -20,6 +20,7 @@ ALLGOFILES=\
 	mat3.go\
 	mat4.go\
         quaternion.go\
+        plane.go\
 	vec2.go\
 	vec3.go\
 	vec4.go\

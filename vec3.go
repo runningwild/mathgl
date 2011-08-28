@@ -34,7 +34,7 @@ func (v *Vec3) Normalize() {
 
 // Adds the given Vec3 with the vector
 func (v *Vec3) Add(x *Vec3) {
-	v.X += x.x
+	v.X += x.X
 	v.Y += x.Y
 	v.Z += x.Z
 }
@@ -94,9 +94,9 @@ func (v *Vec3) TransformCoord(m *Mat4) {
 
 	t.Transform(m)
 
-	v.X = t.X / t.w
-	v.Y = t.Y / t.w
-	v.Z = t.Z / t.w
+	v.X = t.X / t.W
+	v.Y = t.Y / t.W
+	v.Z = t.Z / t.W
 }
 
 // Transform a normal Vec3 with the given Mat4 matrix. Omits the translation, only scaling + rotating
