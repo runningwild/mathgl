@@ -55,15 +55,15 @@ func (m *Mat3) Adjugate() {
 	*m = adjugate
 }
 
-// Inverse the matrix with the given determinant in float32. Returns true if the inverse could be build.
-func (m *Mat3) Inverse(determinate float32) bool {
-	var detInv float32
+// Inverse the matrix. Returns true if the inverse could be build.
+func (m *Mat3) Inverse() bool {
+	determinate := m.Determinant()
 
 	if determinate == 0.0 {
 		return false
 	}
 
-	detInv = 1.0 / determinate
+	detInv := 1.0 / determinate
 	m.Adjugate()
 	m.ScalarMultiply(detInv)
 

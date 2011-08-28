@@ -138,7 +138,7 @@ func gaussj(a, b *Mat4) bool {
 }
 
 // Inverse the matrix with the given determinant in float32. Returns true if the inverse could be build.
-func (m *Mat4) Inverse(determinate float32) bool {
+func (m *Mat4) Inverse() bool {
 	var inv, tmp Mat4
 	inv.Assign(m)
 	tmp.Identity()

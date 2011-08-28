@@ -117,7 +117,7 @@ func TestMat3(t *testing.T) {
 	if det != 85 {
 		t.Errorf("Determinant is not 85! It is %f", det)
 	}
-	if !m.Inverse(det) {
+	if !m.Inverse() {
 		t.Errorf("Determinant was 0! Can't calculate inverse!")
 	}
 	m.Multiply(&n)
@@ -136,7 +136,7 @@ func TestMat4(t *testing.T) {
 	}
 	m = Mat4{1.0, 6.0, 2.0, 2.0, 8.0, 4.0, 2.0, 9.0, 7.0, 2.0, 4.0, 1.0, 10.0, 9.0, 5.0, 5.0}
 	n := m
-	if !m.Inverse(det) {
+	if !m.Inverse() {
 		t.Errorf("Determinant was 0! Can't calculate inverse!")
 	}
 	m.Multiply(&n)
