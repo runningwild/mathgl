@@ -1,22 +1,16 @@
 // MathGL is a simple 3D math library written in Go which should help writing OpenGL code.
 package mathgl
 
-// 3x3 Matrix type.
+// 3x3 Matrix type. Column major.
 type Mat3 [9]float32
 
 // Sets the matrix to a 3x3 identity matrix.
 func (m *Mat3) Identity() {
-	m[0] = 1
-	m[1] = 0
-	m[2] = 0
-
-	m[3] = 0
-	m[4] = 1
-	m[5] = 0
-
-	m[6] = 0
-	m[7] = 0
-	m[8] = 1
+	m = &Mat3{
+		1.0, 0.0, 0.0,
+		0.0, 1.0, 0.0,
+		0.0, 0.0, 1.0,
+	}
 }
 
 // Fills the matrix with the given float32.
@@ -52,21 +46,22 @@ func (m *Mat3) Adjugate() {
 	adjugate[7] = m[1]*m[6] - m[0]*m[7]
 	adjugate[8] = m[0]*m[4] - m[1]*m[3]
 
-	// This will trigger the GC
 	m = &adjugate
 }
 
-// Inverse the matrix with the given determinant in float32.
-func (m *Mat3) Inverse(determinate float32) {
+// Inverse the matrix with the given determinant in float32. Returns true if the inverse could be build.
+func (m *Mat3) Inverse(determinate float32) bool {
 	var detInv float32
 
 	if determinate == 0.0 {
-		panic("Division through ZERO at calculating the Inverse!")
+		return false
 	}
 
 	detInv = 1.0 / determinate
 	m.Adjugate()
 	m.ScalarMultiply(detInv)
+
+	return true
 }
 
 
@@ -88,7 +83,6 @@ func (m *Mat3) Transpose() {
 			tmp[(z*3)+x] = m[(x*3)+z]
 		}
 	}
-	// This will trigger the GC
 	m = &tmp
 }
 
@@ -108,7 +102,6 @@ func (m *Mat3) Multiply(in *Mat3) {
 	out[7] = m[1]*in[6] + m[4]*in[7] + m[7]*in[8]
 	out[8] = m[2]*in[6] + m[5]*in[7] + m[8]*in[8]
 
-	// This will trigger the GC
 	m = &out
 }
 
@@ -185,10 +178,10 @@ func (m *Mat3) RotationY(radians float32) {
 // Set the matrix to a matrix that rotates around the z-axis
 func (m *Mat3) RotationZ(radians float32) {
 	m[0] = Fcos32(radians)
-	m[1] = -Fsin32(radians)
+	m[1] = Fsin32(radians)
 	m[2] = 0.0
 
-	m[3] = Fsin32(radians)
+	m[3] = -Fsin32(radians)
 	m[4] = Fcos32(radians)
 	m[5] = 0.0
 
@@ -216,6 +209,8 @@ func (m *Mat3) RotationQuaternion(pIn *Quaternion) {
 func (m *Mat3) RotationAxisAngle(axis Vec3, radians float32) {
 	rcos := Fcos32(radians)
 	rsin := Fsin32(radians)
+
+	axis.Normalize()
 
 	m[0] = rcos + axis.x*axis.x*(1-rcos)
 	m[1] = axis.z*rsin + axis.y*axis.x*(1-rcos)
