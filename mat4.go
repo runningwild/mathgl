@@ -248,7 +248,7 @@ func (m *Mat4) RotationX(radians float32) {
 	m[0] = 1.0
 	m[1] = 0.0
 	m[2] = 0.0
-	m[3] = 1.0
+	m[3] = 0.0
 
 	m[4] = 0.0
 	m[5] = Fcos32(radians)
