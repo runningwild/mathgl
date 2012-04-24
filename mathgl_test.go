@@ -144,3 +144,12 @@ func TestMat4(t *testing.T) {
 		t.Errorf("The Mat4 matrix is not a identity matrix after multiplying itself with its inverse.")
 	}
 }
+
+func TestPolyClipping(t *testing.T) {
+	var p Poly
+	p = append(p, Vec2{3, 0})
+	p = append(p, Vec2{1, 2})
+	p = append(p, Vec2{3, 5})
+	p = append(p, Vec2{6, 0})
+	p.Clip(&Seg2{Vec2{2,0}, Vec2{2,10}})
+}

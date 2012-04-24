@@ -30,6 +30,10 @@ func (v *Vec2) Normalize() {
 	v.Y *= l
 }
 
+func (v *Vec2) Cross() {
+	v.X, v.Y = -v.Y, v.X
+}
+
 // Adds the given Vec2 with the vector
 func (v *Vec2) Add(x *Vec2) {
 	v.X += x.X
